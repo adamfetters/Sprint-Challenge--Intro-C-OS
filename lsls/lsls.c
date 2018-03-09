@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <dirent.h>
+#include <stdlib.h>
 
 /**
  * Main
@@ -8,13 +9,18 @@ int main(int argc, char **argv)
 {
   // Parse command line
   DIR *pDir;
+  struct dirent *ent;
 
   if (argc < 2)
   {
     //TODO open current directory
     printf("Usage: testprog <dirname>\n");
-    pDir = opendir(argv[0]);
-    return 1;
+    pDir = opendir(".");
+    while ((ent = readdir(pDir)) != NULL)
+    {
+      printf("%s\n", ent->d_name);
+    }
+    closedir(pDir);
   }
   else
   {
@@ -23,7 +29,7 @@ int main(int argc, char **argv)
     {
 
       printf("Cannot open directory %s\n", argv[1]);
-      return 1;
+      exit(0);
     }
   }
 
