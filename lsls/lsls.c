@@ -7,15 +7,25 @@
 int main(int argc, char **argv)
 {
   // Parse command line
-  int i;
+  DIR *pDir;
 
-  printf("There are %d command line argument(s):\n", argc);
-
-  for (i = 0; i < argc; i++)
+  if (argc < 2)
   {
-    printf("   %s\n", argv[i]);
+    //TODO open current directory
+    printf("Usage: testprog <dirname>\n");
+    pDir = opendir(argv[0]);
+    return 1;
+  }
+  else
+  {
+    pDir = opendir(argv[1]);
+    if (pDir == NULL)
+    {
 
-  } // Open directory
+      printf("Cannot open directory %s\n", argv[1]);
+      return 1;
+    }
+  }
 
   // Repeatly read and print entries
 
