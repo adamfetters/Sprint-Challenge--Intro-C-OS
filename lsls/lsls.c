@@ -16,6 +16,12 @@ int main(int argc, char **argv)
     //TODO open current directory
     printf("Usage: testprog <dirname>\n");
     pDir = opendir(".");
+    if (pDir == NULL)
+    {
+
+      printf("Cannot open directory %s\n", argv[1]);
+      exit(0);
+    }
     while ((ent = readdir(pDir)) != NULL)
     {
       printf("%s\n", ent->d_name);
@@ -31,6 +37,11 @@ int main(int argc, char **argv)
       printf("Cannot open directory %s\n", argv[1]);
       exit(0);
     }
+    while ((ent = readdir(pDir)) != NULL)
+    {
+      printf("%s\n", ent->d_name);
+    }
+    closedir(pDir);
   }
 
   // Repeatly read and print entries
